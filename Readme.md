@@ -1,4 +1,4 @@
-# Promagra de estoque
+# Programa de estoque
 # Opções do programa:
     # Adicionar novos itens e quantidade
     # Realizar ajustes de estoque

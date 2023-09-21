@@ -4,42 +4,60 @@ historico = []
 
 
 def add_produto():
-    produtos.append(input('Qual produto desejá adicinar: '))
+    print('=================')
+    produtos.append(input('Qual produto desejá adicionar: '))
     quantidades.append(input('Qual a quantidade desse produto: '))
-    add01 = (f'{quantidades[-1]} unidades do produto {produtos[-1]} foi adicionado ao estoque!')
-    print(add01)
-    historico.append(add01)
-    print(historico)
+    historico.append(f'{quantidades[-1]} unidades do produto {produtos[-1]} foi adicionado ao estoque!')
+    print(historico[-1])
+    print('=================')
     ask()
 
 
 def find_product(nome_produto):
-    print(f'{nome_produto}')
-    #produto = list.index({nome_produto})
-    #return produto
+    prod_found = produtos.index(nome_produto)
+    return prod_found
+    
+
+def find_quanti(quantidade_produtos):
+    quanti_found = quantidades[quantidade_produtos]
+    return quanti_found
 
 
 def remove_produto():
     print('=================')
-    print('Digite 1 para cancelar')
+    print('Digite "cancelar" para voltar!')
     res1 = input('Qual produto desejá remover: ')
-    if res1 == '1':
+    if res1 == 'cancelar':
         print('=================')
         ask()
     if res1 in produtos:
-        find_product(res1)
-        print(f'Produto encontrado!')
+        prod_found = find_product(res1)
+        quanti_found = find_quanti(prod_found)
+        if quanti_found > 0:
+            pass
+        else:
+            print('O estoque do produto é 0')
+            remove_produto()
         print('=================')
-        print('Digite 1 para cancelar')
-        res2 = int(input('Qual a quantidade deseja remover: '))
-            
-        if res2 == 1:
+        print('Digite "cancelar" para voltar!')
+        res2 = input('Qual a quantidade deseja remover: ')
+        if res2 == 'cancelar':
+            print('=================')
             ask()
+        else:
+            res2 = int(res2)
+        if quanti_found > res2:
+            res3 = quanti_found - res2
+            quantidades.pop(prod_found)
+            quantidades.insert(prod_found, res3)
     else:
         print('Produto não encontrado')
         print('Tente novamente')
         remove_produto()
-    print('Item Removido')
+    historico.append(f'{res2} unidades do produto {res1} foi removido do estoque!')
+    print(historico[-1])   
+    print('=================')
+    ask()
 
 
 def ask():
